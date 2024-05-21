@@ -5,61 +5,56 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: sreo <sreo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/19 17:19:11 by sreo              #+#    #+#             */
-/*   Updated: 2024/05/20 00:29:55 by sreo             ###   ########.fr       */
+/*   Created: 2024/05/21 22:15:37 by sreo              #+#    #+#             */
+/*   Updated: 2024/05/21 22:23:59 by sreo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-int skipstr(char *str, int count)
+size_t	ft_strlen(const char *str)
 {
-    int i;
-    int j;
+	size_t	i;
 
-    i = 1;
-    j = 0;
-    while(i < count)
-    {
-        while(str[j] != '\n')
-            j++;
-        i++;
-        j++;
-    }
-    return j;
+	i = 0;
+	while (str[i])
+		i++;
+	return (i);
 }
 
-int countlen(char *str, int i)
+static char	*ft_strcat(char *dest, const char *src)
 {
-    int len;
+	int	i;
+	int	j;
 
-    len = 0;
-    while(str[i] != '\n')
-    {
-        i++;
-        len ++;
-    }
-    return len;
+	i = 0;
+	j = 0;
+	while (dest[i])
+		i++;
+	while (src[j])
+	{
+		dest[i + j] = src[j];
+		j++;
+	}
+	dest[i + j] = '\0';
+	return (dest);
 }
 
-char *getstr(char *str, int count)
+char	*ft_strjoin(char const *s1, char const *s2)
 {
-    int i;
-    int j;
-    int len;
-    char *result;
-    
-    i = skipstr(str, count);
-    j = 0;
-    len = countlen(str, count);
-    result = malloc(sizeof(char) * (len + 1));
-    if(result == NULL)
-        return NULL;
-    while(str[i + j] != '\n')
-    {
-        result[j] = str[i + j];
-        j++;
-    }
-    result[j] = '\0';
-    return result;
+	char	*strs;
+	int		i;
+
+	i = 0;
+	strs = malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
+	if (strs == NULL)
+		return (NULL);
+	while (s1[i])
+	{
+		strs[i] = s1[i];
+		i++;
+	}
+	strs[i] = '\0';
+	ft_strcat(strs, s2);
+	return (strs);
 }

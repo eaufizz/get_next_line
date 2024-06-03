@@ -6,7 +6,7 @@
 /*   By: sreo <sreo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 22:15:37 by sreo              #+#    #+#             */
-/*   Updated: 2024/05/21 22:23:59 by sreo             ###   ########.fr       */
+/*   Updated: 2024/06/03 22:03:14 by sreo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,16 @@ static char	*ft_strcat(char *dest, const char *src)
 	return (dest);
 }
 
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*ft_strjoin(char *s1, char const *s2)
 {
 	char	*strs;
 	int		i;
 
+	if(!s1)
+	{
+		s1 = malloc(sizeof(char));
+		s1[0] = '\0';
+	}
 	i = 0;
 	strs = malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
 	if (strs == NULL)
@@ -57,4 +62,24 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	strs[i] = '\0';
 	ft_strcat(strs, s2);
 	return (strs);
+}
+
+char	*ft_strchr(const char *string, int c)
+{
+	int		i;
+	char	cc;
+
+	i = 0;
+	cc = c;
+	if(!string)
+		return 0;
+	while (string[i])
+	{
+		if (string[i] == cc)
+			return ((char *)&string[i]);
+		i++;
+	}
+	if (string[i] == cc)
+		return ((char *)&string[i]);
+	return (NULL);
 }

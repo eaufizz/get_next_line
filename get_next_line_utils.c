@@ -6,7 +6,7 @@
 /*   By: sreo <sreo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 22:15:37 by sreo              #+#    #+#             */
-/*   Updated: 2024/06/03 22:03:14 by sreo             ###   ########.fr       */
+/*   Updated: 2024/06/04 21:45:59 by sreo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,12 @@ static char	*ft_strcat(char *dest, const char *src)
 	return (dest);
 }
 
-char	*ft_strjoin(char *s1, char const *s2)
+char	*ft_strjoin(char *s1, char *s2)
 {
 	char	*strs;
 	int		i;
 
-	if(!s1)
+	if (!s1)
 	{
 		s1 = malloc(sizeof(char));
 		s1[0] = '\0';
@@ -61,6 +61,7 @@ char	*ft_strjoin(char *s1, char const *s2)
 	}
 	strs[i] = '\0';
 	ft_strcat(strs, s2);
+	free(s1);
 	return (strs);
 }
 
@@ -71,8 +72,8 @@ char	*ft_strchr(const char *string, int c)
 
 	i = 0;
 	cc = c;
-	if(!string)
-		return 0;
+	if (!string)
+		return (0);
 	while (string[i])
 	{
 		if (string[i] == cc)
@@ -82,4 +83,21 @@ char	*ft_strchr(const char *string, int c)
 	if (string[i] == cc)
 		return ((char *)&string[i]);
 	return (NULL);
+}
+
+char	*ft_strdup(const char *src)
+{
+	int		i;
+	int		len;
+	char	*p;
+
+	i = -1;
+	len = ft_strlen(src);
+	p = (char *)malloc(sizeof(char) * len + 1);
+	if (p == NULL)
+		return (NULL);
+	while (++i < len)
+		p[i] = src[i];
+	p[i] = '\0';
+	return (p);
 }

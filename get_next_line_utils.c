@@ -6,7 +6,7 @@
 /*   By: sreo <sreo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 22:15:37 by sreo              #+#    #+#             */
-/*   Updated: 2024/06/04 21:45:59 by sreo             ###   ########.fr       */
+/*   Updated: 2024/06/06 18:52:19 by sreo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,11 +45,11 @@ char	*ft_strjoin(char *s1, char *s2)
 	char	*strs;
 	int		i;
 
-	if (!s1)
-	{
-		s1 = malloc(sizeof(char));
-		s1[0] = '\0';
-	}
+	// if (!s1)
+	// {
+	// 	s1 = malloc(sizeof(char));
+	// 	s1[0] = '\0';
+	// }
 	i = 0;
 	strs = malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
 	if (strs == NULL)

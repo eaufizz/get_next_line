@@ -6,7 +6,7 @@
 /*   By: sreo <sreo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 16:04:47 by sreo              #+#    #+#             */
-/*   Updated: 2024/06/06 19:19:14 by sreo             ###   ########.fr       */
+/*   Updated: 2024/06/07 14:36:00 by sreo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,15 +21,10 @@ char	*readfd(int fd, char *temp)
 	i = 1;
 	j = 0;
 	buf = malloc(sizeof(char) * (BUFFER_SIZE + 1));
-	if (buf == NULL)
-	{
-		free(temp);
-		return (NULL);
-	}
 	while (!ft_strchr(temp, '\n') && i != 0 && ++j)
 	{
 		i = read(fd, buf, BUFFER_SIZE);
-		if (i == -1 || (j == 1 && i == 0 && temp[0] == '\0'))
+		if (i == -1 || (j == 1 && i == 0 && temp[0] == '\0') || !buf)
 		{
 			free(buf);
 			free(temp);
@@ -37,6 +32,8 @@ char	*readfd(int fd, char *temp)
 		}
 		buf[i] = '\0';
 		temp = ft_strjoin(temp, buf);
+		if (temp == NULL)
+			return (NULL);
 	}
 	free(buf);
 	return (temp);
@@ -86,15 +83,14 @@ char	*trimtemp(char *temp)
 	while (temp[i + j])
 		j++;
 	str = malloc(sizeof(char) * (j + 1));
-	if (str == NULL)
-		return (NULL);
 	j = 0;
-	while (temp[i + j])
+	while (temp[i + j] && str != NULL)
 	{
 		str[j] = temp[i + j];
 		j++;
 	}
-	str[j] = '\0';
+	if (str != NULL)
+		str[j] = '\0';
 	free(temp);
 	return (str);
 }
@@ -112,7 +108,10 @@ char	*get_next_line(int fd)
 	}
 	temp = readfd(fd, temp);
 	if (temp == NULL)
+	{
+		free(temp);
 		return (NULL);
+	}
 	result = readline(temp);
 	if (result == NULL)
 		return (NULL);
